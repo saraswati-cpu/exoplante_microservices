@@ -1,0 +1,69 @@
+definitions:
+  models.Exoplanet:
+    properties:
+      description:
+        type: string
+      distance:
+        description: distance from Earth in light years
+        type: integer
+      id:
+        type: string
+      mass:
+        description: mass in Earth-mass units, only for Terrestrial
+        type: number
+      name:
+        type: string
+      radius:
+        description: radius in Earth-radius units
+        type: number
+      type:
+        description: GasGiant or Terrestrial
+        type: string
+    required:
+    - description
+    - distance
+    - name
+    - radius
+    - type
+    type: object
+info:
+  contact: {}
+paths:
+  /exoplanets:
+    post:
+      consumes:
+      - application/json
+      description: Create a new product
+      parameters:
+      - description: Product information
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Exoplanet'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Exoplanet'
+      summary: Create a new product
+      tags:
+      - Product
+  /ping:
+    get:
+      description: This end point respond to pings
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: error
+          schema:
+            type: string
+      summary: ping
+      tags:
+      - ping
+swagger: "2.0"

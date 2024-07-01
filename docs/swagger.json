@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/exoplanets": {
+            "post": {
+                "description": "Create a new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new product",
+                "parameters": [
+                    {
+                        "description": "Product information",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Exoplanet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Exoplanet"
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "This end point respond to pings",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ping"
+                ],
+                "summary": "ping",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Exoplanet": {
+            "type": "object",
+            "required": [
+                "description",
+                "distance",
+                "name",
+                "radius",
+                "type"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "distance": {
+                    "description": "distance from Earth in light years",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "mass": {
+                    "description": "mass in Earth-mass units, only for Terrestrial",
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "radius": {
+                    "description": "radius in Earth-radius units",
+                    "type": "number"
+                },
+                "type": {
+                    "description": "GasGiant or Terrestrial",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
