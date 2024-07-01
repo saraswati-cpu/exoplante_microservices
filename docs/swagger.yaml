@@ -30,6 +30,22 @@ info:
   contact: {}
 paths:
   /exoplanets:
+    get:
+      description: This end point returns list of all exoplanetts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Exoplanet'
+        "404":
+          description: error
+          schema:
+            type: string
+      summary: Get All exoplanete
+      tags:
+      - Exoplanets
     post:
       consumes:
       - application/json

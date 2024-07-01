@@ -6,7 +6,15 @@ import (
 	"exoplant_services/pkg/Api/models"
 	"net/http"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
+
+var logger *logrus.Logger
+
+func SetLogger(l *logrus.Logger) {
+	logger = l
+}
 
 var exoplanets = make(map[string]models.Exoplanet)
 
@@ -28,4 +36,14 @@ func AddExoplanet(exopl *models.Exoplanet) (int, error) {
 	}
 	return http.StatusCreated, nil
 
+}
+
+func GetAllExoplanet() ([]models.Exoplanet, int, error) {
+	var exop []models.Exoplanet
+	result := config.DB.Find(&exop)
+	if result.Error != nil {
+		logger.Error("Error retrieving exoplanete from the database:", result.Error)
+		return nil, http.StatusInternalServerError, errors.New("failed to retrieve products from the database")
+	}
+	return exop, http.StatusOK, nil
 }

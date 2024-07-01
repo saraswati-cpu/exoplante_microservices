@@ -16,6 +16,30 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/exoplanets": {
+            "get": {
+                "description": "This end point returns list of all exoplanetts",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exoplanets"
+                ],
+                "summary": "Get All exoplanete",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Exoplanet"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Create a new product",
                 "consumes": [

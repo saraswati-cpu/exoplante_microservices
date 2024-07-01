@@ -18,3 +18,7 @@ var schemaName = config.NewConfig().SchemaName
 func (*Exoplanet) TableName() string {
 	return schemaName + ".exoplanet"
 }
+
+type OutputResponse struct {
+	Products []Exoplanet `json:"exoplanet"`
+}
