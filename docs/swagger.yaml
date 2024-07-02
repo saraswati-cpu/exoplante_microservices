@@ -17,15 +17,23 @@ definitions:
         description: radius in Earth-radius units
         type: number
       type:
+        allOf:
+        - $ref: '#/definitions/models.ExoplanetType'
         description: GasGiant or Terrestrial
-        type: string
     required:
     - description
     - distance
     - name
     - radius
-    - type
     type: object
+  models.ExoplanetType:
+    enum:
+    - GasGiant
+    - Terrestrial
+    type: string
+    x-enum-varnames:
+    - GasGiant
+    - Terrestrial
 info:
   contact: {}
 paths:
@@ -67,6 +75,52 @@ paths:
       summary: Create a new product
       tags:
       - Product
+  /exoplanets/{id}:
+    delete:
+      responses: {}
+      summary: Delete Explonets by ID
+    get:
+      parameters:
+      - description: Exoplanet ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Exoplanet'
+        "404":
+          description: error
+          schema:
+            type: string
+      summary: Get Explonets by ID
+      tags:
+      - Exoplanets
+    put:
+      parameters:
+      - description: Exoplanet ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Exoplanet'
+        "404":
+          description: error
+          schema:
+            type: string
+      summary: Update Explonets by ID
+      tags:
+      - Exoplanets
   /ping:
     get:
       description: This end point respond to pings

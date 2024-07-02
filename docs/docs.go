@@ -73,6 +73,76 @@ const docTemplate = `{
                 }
             }
         },
+        "/exoplanets/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exoplanets"
+                ],
+                "summary": "Get Explonets by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Exoplanet ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Exoplanet"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exoplanets"
+                ],
+                "summary": "Update Explonets by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Exoplanet ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Exoplanet"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Explonets by ID",
+                "responses": {}
+            }
+        },
         "/ping": {
             "get": {
                 "description": "This end point respond to pings",
@@ -104,8 +174,7 @@ const docTemplate = `{
                 "description",
                 "distance",
                 "name",
-                "radius",
-                "type"
+                "radius"
             ],
             "properties": {
                 "description": {
@@ -131,9 +200,24 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "GasGiant or Terrestrial",
-                    "type": "string"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.ExoplanetType"
+                        }
+                    ]
                 }
             }
+        },
+        "models.ExoplanetType": {
+            "type": "string",
+            "enum": [
+                "GasGiant",
+                "Terrestrial"
+            ],
+            "x-enum-varnames": [
+                "GasGiant",
+                "Terrestrial"
+            ]
         }
     }
 }`
